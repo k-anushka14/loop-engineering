@@ -153,7 +153,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
+          git checkout -- . ':!STATE.md' ':!loop-run-log.md' 2>/dev/null || true
+          git clean -fd -- . ':!STATE.md' ':!loop-run-log.md' 2>/dev/null || true
           if git diff --quiet STATE.md loop-run-log.md; then
             echo "No STATE.md or loop-run-log.md changes — skip PR"
             echo "opened=false" >> "$GITHUB_OUTPUT"
